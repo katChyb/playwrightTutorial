@@ -8,8 +8,9 @@ def run(playwright: Playwright) -> None:
     page = context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
     page.set_default_timeout(3000)
-    #page.wait_for_load_state("networkidle")
-    #playwright locators https://playwright.dev/python/docs/locators
+    # page.wait_for_load_state("networkidle")
+    # playwright locators https://playwright.dev/python/docs/locators
+    # https://www.w3schools.com/xml/xpath_axes.asp
     page.click("text= Log In")
     # in console you can use eg this CSS selector to identify your element: playwright.$("input[type= "email"]") or
     # playwright.$("text= Shop") or playwright.$(":nth-match(:text('Shop'), 1)") or playwright.$(":nth-match(button, 2)")
