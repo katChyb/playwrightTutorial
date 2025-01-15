@@ -8,6 +8,23 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 #pytest -m "not smoke" will run all test without smoke tests
 #pytest -m "not smoke" -v will run all test without smoke tests in verbalis mode (more details)
 #pytest -m "integration or regression" -v will run all integration or regression test without smoke tests
+#pytest -x stop executing test suite after first failure
+#pytest --maxfail=2  allow max 2 failure before stopping
+#pytest -k test_func_name run single test
+#pytest test_file.py run single file, need to provide root path for file
+#pytest --lf re-run last failed test
+#pytest --ff re-run all test starting from failed
+#pytest --ff -x -v re-run all test starting from failed and stop after first failure and user verbalis mode
+#https://docs.pytest.org/en/6.2.x/usage.html
+# running test with test report: pytest --template=html1/index.html --report=report.html
+# need to install pytest-reporter-html1
+
+#parallel run with pytes - install  pytest-xdist
+#pytest -n 3 will run 3 tests in parallel
+
+#combining pytest, report and parallel
+#aim: run only regression, stop after 2 failure, generate test report, and as we wnt to have it quick use parallel execution
+#pytest --maxfail=2 -m regression --template=html1/index.html --report=regression_run_date.html -n3
 
 def test_login(playwright: Playwright) -> None:
     browser = playwright.chromium.launch(headless=False) #, slow_mo= 500
