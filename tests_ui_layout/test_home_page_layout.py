@@ -1,26 +1,46 @@
-from playwright.sync_api import Playwright, expect
+import page
+from playwright.sync_api import Playwright, expect, sync_playwright
+
+from conftest import log_in_set_up
 from pom.home_page_elements import HomePage
 import pytest
 
-@pytest.mark.regression
-def test_about_us_section_verbiage(playwright: Playwright):
-    browser = playwright.chromium.launch(headless=False)
-    page = browser.new_page()
-    page.goto("https://symonstorozhenko.wixsite.com/website-1")
-    home_page = HomePage(page)
-    expect(home_page.celebrate_header).to_be_visible()
-    expect(home_page.celebrate_body).to_be_visible()
 
+
+@pytest.mark.regression
+def test_about_us_section_verbiage(log_in_set_up) -> None:
+ #   browser = playwright.chromium.launch(headless=False)
+ #   page = browser.new_page()
+
+     page= log_in_set_up
+
+     expect(HomePage.celebrate_header).to_be_visible()
+     expect(HomePage.celebrate_body).to_be_visible()
+  #  assert page.is_visible(HomePage.c)  # this one will intentionally fail
+  #  assert page.is_visible(HomePage.celebrate_header)
+
+# @pytest.mark.regression
+# def test_about_us_section_verbiage_without_fixture(playwright: Playwright):
+#     browser = playwright.chromium.launch(headless=False)
+#     page = browser.new_page()
+#     page.goto("https://symonstorozhenko.wixsite.com/website-1")
+#     home_page = HomePage(page)
+#
+#     expect(home_page.celebrate_body).to_be_visible()
+#     expect(home_page.celebrate_header).to_be_visible()
+#   #  assert page.is_visible(HomePage.c)  # this one will intentionally fail
+#   #  assert page.is_visible(HomePage.celebrate_header)
+#
+#     with sync_playwright() as playwright:
+#         test_about_us_section_verbiage
 
 #@pytest.mark.skip(reason= "WIP")
-@pytest.mark.xfail(reason= "fake text should not be visible")
-def test_about_us_section_verbiage_2(playwright: Playwright):
-    browser = playwright.chromium.launch(headless=False)
-    page = browser.new_page()
-    page.goto("https://symonstorozhenko.wixsite.com/website-1")
-    home_page = HomePage(page)
+#@pytest.mark.xfail(reason= "fake text should not be visible")
+def test_about_us_section_verbiage_2(set_up) -> None:
 
-    assert page.is_visible("text= fake text")
+    page = set_up
 
-    expect(home_page.celebrate_header).to_be_visible()
-    expect(home_page.celebrate_body).to_be_visible()
+    expect(HomePage.celebrate_header).to_be_visible()
+    expect(HomePage.celebrate_body).to_be_visible()
+
+
