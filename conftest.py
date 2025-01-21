@@ -14,7 +14,7 @@ def set_up(page):
     page.set_default_timeout(4000)
 
     yield page #it is better to use yield instead of return, it can do more extra things
-
+    page.close()
 
 
 @pytest.fixture
@@ -39,6 +39,7 @@ def log_in_set_up(set_up):
     page.get_by_test_id("submit").get_by_test_id("buttonElement").click()
 
     yield page
+    page.close()
 
 
 @pytest.fixture
@@ -46,3 +47,4 @@ def go_to_new_collection_page(page):
     page.goto("/new-collection")
     page.set_default_timeout(3000)
     yield page
+    page.close()

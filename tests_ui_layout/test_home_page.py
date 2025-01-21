@@ -5,7 +5,7 @@ import pytest
 from conftest import set_up
 
 
-def run(set_up) -> None:
+def test_run(set_up) -> None:
  #   browser = playwright.chromium.launch(headless=False)
  #   context = browser.new_context()
  #   page = context.new_page()
