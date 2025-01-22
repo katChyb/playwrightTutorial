@@ -11,7 +11,7 @@ def test_run(set_up) -> None:
  #   page = context.new_page()
     page = set_up()
 
-    page.goto("https://symonstorozhenko.wixsite.com/website-1")
+    #page.goto("https://symonstorozhenko.wixsite.com/website-1")
     page.wait_for_load_state("networkidle")
     page.get_by_role("button", name="Log In").click()
     page.get_by_role("button", name="Sign up with email").click()
