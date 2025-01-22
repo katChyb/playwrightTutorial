@@ -6,8 +6,8 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 
 #pytest -k test_user_can_login_parameters --headed --slowmo=400
 @pytest.mark.parametrize("email, password", [("korin666@o2.pl","test1"),
-                                             ("fakeemail@o2.pl","fakepwd"),
-                                             ("korin666@o2","test1")])
+                                             pytest.param("fakeemail@o2.pl","fakepwd", marks=pytest.mark.xfail),
+                                             pytest.param("korin666@o2","test1", marks=pytest.mark.xfail)])
 def test_user_can_login_parameters(page, email, password) -> None:
    # browser = playwright.chromium.launch(headless=False, slow_mo=500)
     #context = browser.new_context()

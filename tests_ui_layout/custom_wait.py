@@ -42,4 +42,4 @@ def test_login_without_fixture(playwright: Playwright) -> None:
 
 
 with sync_playwright() as playwright:
-    test_login_without_fixture(playwright)
+     test_login_without_fixture(playwright)
