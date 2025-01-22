@@ -1,11 +1,16 @@
 import re
 from playwright.sync_api import Playwright, sync_playwright, expect
+import pytest
+
+from conftest import set_up
 
 
-def run(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context()
-    page = context.new_page()
+def test_run(set_up) -> None:
+ #   browser = playwright.chromium.launch(headless=False)
+ #   context = browser.new_context()
+ #   page = context.new_page()
+    page = set_up()
+
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
     page.wait_for_load_state("networkidle")
     page.get_by_role("button", name="Log In").click()
@@ -24,9 +29,4 @@ def run(playwright: Playwright) -> None:
     print("yay")
 
     # ---------------------
-    context.close()
-    browser.close()
 
-
-with sync_playwright() as playwright:
-    run(playwright)

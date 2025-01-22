@@ -27,20 +27,20 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 #aim: run only regression, stop after 2 failure, generate test report, and as we wnt to have it quick use parallel execution
 #pytest --maxfail=2 -m regression --template=html1/index.html --report=regression_run_date.html -n3
 
-def test_login(set_up) -> None:
-    page = set_up
+def test_loged_user_can_see_My_Orders_menu(log_in_set_up) -> None:
+    page = log_in_set_up
 
-    page.wait_for_load_state("networkidle")
-    page.get_by_role("button", name="Log In").click()
-    page.get_by_test_id("signUp.switchToSignUp").click()
-    page.get_by_role("button", name="Log in with Email").click()
-    page.get_by_test_id("emailAuth").get_by_label("Email").click()
-    page.get_by_test_id("emailAuth").get_by_label("Email").fill("korin666@o2.pl")
-    page.get_by_label("Password").click()
-    page.get_by_label("Password").fill("test1")
-    page.get_by_test_id("submit").get_by_test_id("buttonElement").click()
-    page.wait_for_load_state("networkidle")
-#   page.click("[aria-label='korin666 account menu']")
+#     page.wait_for_load_state("networkidle")
+#     page.get_by_role("button", name="Log In").click()
+#     page.get_by_test_id("signUp.switchToSignUp").click()
+#     page.get_by_role("button", name="Log in with Email").click()
+#     page.get_by_test_id("emailAuth").get_by_label("Email").click()
+#     page.get_by_test_id("emailAuth").get_by_label("Email").fill("korin666@o2.pl")
+#     page.get_by_label("Password").click()
+#     page.get_by_label("Password").fill("test1")
+#     page.get_by_test_id("submit").get_by_test_id("buttonElement").click()
+#     page.wait_for_load_state("networkidle")
+# #   page.click("[aria-label='korin666 account menu']")
     page.get_by_label("korin666 account menu").click()
 #   expect( page.get_by_role("button", name="Log In")).to_be_hidden()
 #   expect("text=My Orders").to_be_visible()

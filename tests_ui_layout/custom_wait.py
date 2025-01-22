@@ -4,13 +4,13 @@ import time
 from playwright.sync_api import Playwright, sync_playwright, expect
 
 
-def run(playwright: Playwright) -> None:
+def test_login_without_fixture(playwright: Playwright) -> None:
     browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     page = context.new_page()
 #    page.pause()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
-    page.set_default_timeout(3000)
+    page.set_default_timeout(4000)
     #page.wait_for_load_state("networkidle")
     #time.sleep(2)   not best practice
     # page.wait_for_selector("button:has-text(\"Log in\")")
@@ -42,4 +42,4 @@ def run(playwright: Playwright) -> None:
 
 
 with sync_playwright() as playwright:
-    run(playwright)
+     test_login_without_fixture(playwright)
