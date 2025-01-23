@@ -1,6 +1,5 @@
 import time
 
-import page
 from playwright.sync_api import Playwright, expect, sync_playwright
 
 from conftest import log_in_set_up
