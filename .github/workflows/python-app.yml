@@ -31,7 +31,7 @@ jobs:
         python -m pip install pytest-xdist
         python -m pip install pytest-reporter-html1
     - name: Ensure playwright browsers are installed
-      run: python -m playwright install
+      run: python -m playwright install chromium
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
