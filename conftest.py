@@ -31,7 +31,7 @@ def log_in_set_up(set_up):
         time.sleep(0.1)
     page.get_by_test_id("signUp.switchToSignUp").click()
   #  page.set_default_timeout(2000)
-    time.sleep(0.5)
+    time.sleep(0.1)
     page.get_by_role("button", name="Log in with Email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").fill("korin666@o2.pl")

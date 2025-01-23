@@ -10,7 +10,7 @@ def test_login_without_fixture(playwright: Playwright) -> None:
     page = context.new_page()
 #    page.pause()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
-    page.set_default_timeout(4000)
+    page.set_default_timeout(3000)
     #page.wait_for_load_state("networkidle")
     #time.sleep(2)   not best practice
     # page.wait_for_selector("button:has-text(\"Log in\")")
@@ -24,6 +24,7 @@ def test_login_without_fixture(playwright: Playwright) -> None:
             login_issue = False
         time.sleep(0.1)
     page.get_by_test_id("signUp.switchToSignUp").click()
+    time.sleep(0.1)
     page.get_by_role("button", name="Log in with Email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").fill("korin666@o2.pl")

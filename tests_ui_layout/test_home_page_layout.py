@@ -27,7 +27,7 @@ def test_about_us_section_verbiage_without_fixture(playwright: Playwright):
     page = browser.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
    # home_page = HomePage(page)
-    time.sleep(0.5)
+    time.sleep(0.1)
     expect(page.get_by_text("Celebrating Beauty and Style")).to_be_visible()
     expect(page.get_by_text("playwright-practice was founded by a group of like-minded fashion")).to_be_visible()
   #  expect(home_page.celebrate_body).to_be_visible()

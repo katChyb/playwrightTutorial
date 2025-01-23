@@ -1,4 +1,6 @@
 import re
+import time
+
 from playwright.sync_api import Playwright, sync_playwright, expect
 import pytest
 
@@ -13,6 +15,7 @@ def test_run(set_up) -> None:
 
     #page.goto("https://symonstorozhenko.wixsite.com/website-1")
     page.wait_for_load_state("networkidle")
+    time.sleep(0.1)
     page.get_by_role("button", name="Log In").click()
     page.get_by_role("button", name="Sign up with email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").fill("katarzyna_chybczynska@10g.pl")
