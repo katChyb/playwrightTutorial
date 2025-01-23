@@ -5,7 +5,7 @@ from playwright.sync_api import Playwright
 
 #pytest -k test_login --headed will run test with head, this allows to run specific setting without hardcoding it in code
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def set_up(browser):
    # browser = playwright.chromium.launch(headless=False) #, slow_mo= 500
     context = browser.new_context()
@@ -17,7 +17,7 @@ def set_up(browser):
     page.close()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def log_in_set_up(set_up):
 
     page= set_up

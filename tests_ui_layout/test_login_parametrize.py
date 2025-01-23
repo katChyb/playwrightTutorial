@@ -5,6 +5,9 @@ import pytest
 from playwright.sync_api import Playwright, sync_playwright, expect
 
 #pytest -k test_user_can_login_parameters --headed --slowmo=400
+# -k test_user_can_login_parameters --headed --template=html1/index.html --report=test_run_23012025v2.html
+# --screenshot=only-on-failure --slowmo=400
+
 #this parametrisation will run against all emails and all passwords, increasing data coverage
 @pytest.mark.parametrize("email", ["korin666@o2.pl",
                                              pytest.param("fakeemail@o2.pl", marks=pytest.mark.xfail),

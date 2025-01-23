@@ -27,7 +27,7 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 #aim: run only regression, stop after 2 failure, generate test report, and as we wnt to have it quick use parallel execution
 #pytest --maxfail=2 -m regression --template=html1/index.html --report=regression_run_date.html -n3
 
-def test_loged_user_can_see_My_Orders_menu(log_in_set_up) -> None:
+def test_loged_user_can_see_my_orders_menu(log_in_set_up) -> None:
     page = log_in_set_up
 
 #     page.wait_for_load_state("networkidle")
