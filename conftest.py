@@ -1,4 +1,5 @@
 import time
+from fileinput import close
 
 import pytest
 from playwright.sync_api import Playwright
@@ -53,6 +54,7 @@ def login_set_up(context_creation):
     page.set_default_timeout(3000)
 
     yield page
+    page.close()
 
 @pytest.fixture
 def go_to_new_collection_page(page):
