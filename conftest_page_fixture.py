@@ -11,19 +11,16 @@ def set_up(page):
    # context = browser.new_context()
    # page = context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
-    page.set_default_timeout(3000)
+    page.set_default_timeout(4000)
 
     yield page #it is better to use yield instead of return, it can do more extra things
     page.close()
 
 
-@pytest.fixture(scope='session')
-def context_creation(playwright):
-    browser = playwright.chromium.launch(headless=False, slow_mo= 300)
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto("https://symonstorozhenko.wixsite.com/website-1")
-    page.set_default_timeout(3000)
+@pytest.fixture
+def log_in_set_up(set_up):
+
+    page= set_up
 
     login_issue = True
     while login_issue:
@@ -33,7 +30,7 @@ def context_creation(playwright):
             login_issue = False
         time.sleep(0.1)
     page.get_by_test_id("signUp.switchToSignUp").click()
-    time.sleep(0.1)
+    page.set_default_timeout(2000)
     page.get_by_role("button", name="Log in with Email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").fill("korin666@o2.pl")
@@ -41,18 +38,9 @@ def context_creation(playwright):
     page.get_by_label("Password").fill("test1")
     page.get_by_test_id("submit").get_by_test_id("buttonElement").click()
 
-    yield context
-
-
-#this fixture will yield page with context
-@pytest.fixture()
-def login_set_up(context_creation):
-    context= context_creation
-    page = context.new_page()
-    page.goto("https://symonstorozhenko.wixsite.com/website-1")
-    page.set_default_timeout(3000)
-
     yield page
+    page.close()
+
 
 @pytest.fixture
 def go_to_new_collection_page(page):
