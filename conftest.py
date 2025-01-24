@@ -25,11 +25,11 @@ def log_in_set_up(set_up):
     login_issue = True
     while login_issue:
         if not page.is_visible("[data-testid=\"signUp.switchToSignUp\"]"):
-            page.click("button:has-text(\"Log in\")", timeout=2000)
+            page.click("button:has-text(\"Log in\")")
         else:
             login_issue = False
         time.sleep(0.1)
-    page.get_by_test_id("signUp.switchToSignUp").click()
+    page.get_by_test_id("signUp.switchToSignUp").click(timeout=2000)
   #  page.set_default_timeout(2000)
     time.sleep(0.1)
     page.get_by_role("button", name="Log in with Email").click()

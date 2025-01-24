@@ -16,10 +16,11 @@ def test_about_us_section_verbiage(log_in_set_up) -> None:
 
      page= log_in_set_up
 
-     expect(HomePage.celebrate_header).to_be_visible()
-     expect(HomePage.celebrate_body).to_be_visible()
-  #  assert page.is_visible(HomePage.c)  # this one will intentionally fail
-  #  assert page.is_visible(HomePage.celebrate_header)
+  #    expect(page.get_by_text(HomePage.celebrate_header)).to_be_visible()
+  #    expect(page.get_by_text(HomePage.celebrate_body)).to_be_visible()
+     time.sleep(0.1)
+     assert page.is_visible(HomePage.celebrate_header)
+     assert page.is_visible(HomePage.celebrate_body)
 
 @pytest.mark.regression
 def test_about_us_section_verbiage_without_fixture(playwright: Playwright):
@@ -43,8 +44,11 @@ with sync_playwright() as playwright:
 def test_about_us_section_verbiage_2(set_up) -> None:
 
     page = set_up
-
-    expect(HomePage.celebrate_header).to_be_visible()
-    expect(HomePage.celebrate_body).to_be_visible()
+    # time.sleep(0.1)
+    # expect(HomePage.celebrate_header).to_be_visible()
+    # expect(HomePage.celebrate_body).to_be_visible()
+    time.sleep(0.1)
+    assert page.is_visible(HomePage.celebrate_header)
+    assert page.is_visible(HomePage.celebrate_body)
 
 
