@@ -18,14 +18,9 @@ def set_up(browser):
 
 
 @pytest.fixture(scope="session")
-def context_creation(playwright):
+def log_in_set_up(set_up):
 
-    browser = playwright.chromium.launch(headless=False) #, slow_mo= 300
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto("https://symonstorozhenko.wixsite.com/website-1")
-    page.set_default_timeout(3000)
-
+    page= set_up
 
     login_issue = True
     while login_issue:
@@ -44,18 +39,8 @@ def context_creation(playwright):
     page.get_by_label("Password").fill("test1")
     page.get_by_test_id("submit").get_by_test_id("buttonElement").click()
 
-    yield context
-    page.close()
-
-#this fixture will yield page for every test
-@pytest.fixture()
-def log_in_set_up(context_creation):
-    context = context_creation
-    page= context.new_page()
-    page.goto("https://symonstorozhenko.wixsite.com/website-1")
-    page.set_default_timeout(3000)
-
     yield page
+    page.close()
 
 
 @pytest.fixture
