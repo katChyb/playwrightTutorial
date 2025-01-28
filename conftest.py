@@ -1,4 +1,5 @@
 import time
+from fileinput import close
 
 import pytest
 from playwright.sync_api import Playwright, expect
@@ -38,6 +39,7 @@ def context_creation(playwright):
         else:
             login_issue = False
         time.sleep(0.1)
+        
     page.get_by_test_id("signUp.switchToSignUp").click(timeout=2000)
   #  page.set_default_timeout(2000)
     time.sleep(1)
@@ -53,6 +55,7 @@ def context_creation(playwright):
     yield context
     page.close()
 
+    
 #this fixture will yield page for every test
 @pytest.fixture()
 def log_in_set_up(context_creation, browser):
@@ -68,6 +71,7 @@ def log_in_set_up(context_creation, browser):
     context.close()
 
 
+    
 @pytest.fixture
 def go_to_new_collection_page(page):
     page.goto("/new-collection")

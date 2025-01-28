@@ -5,6 +5,7 @@ from playwright.sync_api import Playwright
 
 #pytest -k test_login --headed will run test with head, this allows to run specific setting without hardcoding it in code
 
+
 @pytest.fixture(scope="session")
 def set_up(browser):
    # browser = playwright.chromium.launch(headless=False) #, slow_mo= 500
@@ -15,6 +16,7 @@ def set_up(browser):
 
     yield page #it is better to use yield instead of return, it can do more extra things
     page.close()
+
 
 
 @pytest.fixture(scope="session")
@@ -29,6 +31,7 @@ def log_in_set_up(set_up):
         else:
             login_issue = False
         time.sleep(0.1)
+
     page.get_by_test_id("signUp.switchToSignUp").click(timeout=2000)
   #  page.set_default_timeout(2000)
     time.sleep(0.1)

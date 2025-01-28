@@ -1,26 +1,31 @@
 import time
 
-import page
 from playwright.sync_api import Playwright, expect, sync_playwright
 
-from conftest import log_in_set_up
+from conftest import login_set_up
 from pom.home_page_elements import HomePage
 import pytest
 
 
 
 @pytest.mark.regression
-def test_about_us_section_verbiage(log_in_set_up) -> None:
+def test_about_us_section_verbiage(login_set_up) -> None:
  #   browser = playwright.chromium.launch(headless=False)
  #   page = browser.new_page()
 
-     page= log_in_set_up
+     page= login_set_up
+
 
   #    expect(page.get_by_text(HomePage.celebrate_header)).to_be_visible()
   #    expect(page.get_by_text(HomePage.celebrate_body)).to_be_visible()
      time.sleep(0.1)
      assert page.is_visible(HomePage.celebrate_header)
      assert page.is_visible(HomePage.celebrate_body)
+
+     # expect(HomePage.celebrate_header).to_be_visible()
+     # expect(HomePage.celebrate_body).to_be_visible()
+
+
 
 @pytest.mark.regression
 def test_about_us_section_verbiage_without_fixture(playwright: Playwright):
@@ -31,6 +36,7 @@ def test_about_us_section_verbiage_without_fixture(playwright: Playwright):
     time.sleep(0.1)
     expect(page.get_by_text("Celebrating Beauty and Style")).to_be_visible()
     expect(page.get_by_text("playwright-practice was founded by a group of like-minded fashion")).to_be_visible()
+
   #  expect(home_page.celebrate_body).to_be_visible()
   #  expect(home_page.celebrate_header).to_be_visible()
   #  assert page.is_visible(HomePage.c)  # this one will intentionally fail
@@ -44,6 +50,7 @@ with sync_playwright() as playwright:
 def test_about_us_section_verbiage_2(set_up) -> None:
 
     page = set_up
+
     # time.sleep(0.1)
     # expect(HomePage.celebrate_header).to_be_visible()
     # expect(HomePage.celebrate_body).to_be_visible()
