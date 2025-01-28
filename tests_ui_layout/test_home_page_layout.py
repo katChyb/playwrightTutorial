@@ -2,18 +2,18 @@ import time
 
 from playwright.sync_api import Playwright, expect, sync_playwright
 
-from conftest import login_set_up
+from conftest import log_in_set_up
 from pom.home_page_elements import HomePage
 import pytest
 
 
 
 @pytest.mark.regression
-def test_about_us_section_verbiage(login_set_up) -> None:
+def test_about_us_section_verbiage(log_in_set_up) -> None:
  #   browser = playwright.chromium.launch(headless=False)
  #   page = browser.new_page()
 
-     page= login_set_up
+     page= log_in_set_up
 
 
   #    expect(page.get_by_text(HomePage.celebrate_header)).to_be_visible()

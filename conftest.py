@@ -3,6 +3,7 @@ from fileinput import close
 
 import pytest
 from playwright.sync_api import Playwright, expect
+from pytest_playwright.pytest_playwright import browser
 
 
 #pytest -k test_login --headed will run test with head, this allows to run specific setting without hardcoding it in code
@@ -56,10 +57,26 @@ def context_creation(playwright):
     page.close()
 
     
+# #this fixture will yield page for every test
+# @pytest.fixture()
+# def log_in_set_up(context_creation, browser):   # here we are creating separate browser window for test
+#   #  context = context_creation
+#     context = browser.new_context(storage_state="state.json")
+#     page= context.new_page()
+#     page.goto("https://symonstorozhenko.wixsite.com/website-1")
+#     page.set_default_timeout(3000)
+#     time.sleep(2)
+#     assert not page.is_visible("text=Log in")
+#
+#     yield page
+#     context.close()
+
+
 #this fixture will yield page for every test
 @pytest.fixture()
-def log_in_set_up(context_creation, browser):
+def log_in_set_up(context_creation, playwright):   # here we are creating separate browser for test
   #  context = context_creation
+    browser= playwright.chromium.launch(headless=False, slow_mo=200)
     context = browser.new_context(storage_state="state.json")
     page= context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
@@ -68,7 +85,7 @@ def log_in_set_up(context_creation, browser):
     assert not page.is_visible("text=Log in")
 
     yield page
-    context.close()
+    browser.close()
 
 
     
