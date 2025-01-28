@@ -1,9 +1,13 @@
+import os
 import time
+from asyncio import timeout
 from fileinput import close
 
 import pytest
 from playwright.sync_api import Playwright, expect
 from pytest_playwright.pytest_playwright import browser
+
+import utils.secret_config
 
 
 #pytest -k test_login --headed will run test with head, this allows to run specific setting without hardcoding it in code
@@ -48,8 +52,10 @@ def context_creation(playwright):
     page.get_by_test_id("emailAuth").get_by_label("Email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").fill("korin666@o2.pl")
     page.get_by_label("Password").click()
-    page.get_by_label("Password").fill("test1")
+    page.get_by_label("Password").fill(utils.secret_config.PASSWORD) # password stored locally in secret config file
+    page.get_by_label("Password").fill(os.environ['PASSWORD'])
     page.get_by_test_id("submit").get_by_test_id("buttonElement").click()
+    page.wait_for_load_state(timeout=10000)
     time.sleep(2)  # slep to capture state after loggin in, and not after clicking button "submit"
     storage = context.storage_state(path="state.json") # this is capturing session and store it in json file
 
