@@ -1,9 +1,13 @@
 import time
 
 import pytest
-from playwright.sync_api import Playwright
+from playwright.sync_api import Playwright, expect
+
 
 #pytest -k test_login --headed will run test with head, this allows to run specific setting without hardcoding it in code
+
+# pytest -k test_about_us_section_verbiage --headed --template=html1/index.html --report=test_run_28012025v1.html --screenshot=only-on-failure --output=test_result_28012025
+
 
 @pytest.fixture(scope="session")
 def set_up(browser):
@@ -20,7 +24,7 @@ def set_up(browser):
 @pytest.fixture(scope="session")
 def context_creation(playwright):
 
-    browser = playwright.chromium.launch(headless=False) #, slow_mo= 300
+    browser = playwright.chromium.launch(headless=False, slow_mo= 400)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
@@ -36,26 +40,32 @@ def context_creation(playwright):
         time.sleep(0.1)
     page.get_by_test_id("signUp.switchToSignUp").click(timeout=2000)
   #  page.set_default_timeout(2000)
-    time.sleep(0.1)
+    time.sleep(1)
     page.get_by_role("button", name="Log in with Email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").fill("korin666@o2.pl")
     page.get_by_label("Password").click()
     page.get_by_label("Password").fill("test1")
     page.get_by_test_id("submit").get_by_test_id("buttonElement").click()
+    time.sleep(2)  # slep to capture state after loggin in, and not after clicking button "submit"
+    storage = context.storage_state(path="state.json") # this is capturing session and store it in json file
 
     yield context
     page.close()
 
 #this fixture will yield page for every test
 @pytest.fixture()
-def log_in_set_up(context_creation):
-    context = context_creation
+def log_in_set_up(context_creation, browser):
+  #  context = context_creation
+    context = browser.new_context(storage_state="state.json")
     page= context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
     page.set_default_timeout(3000)
+    time.sleep(2)
+    assert not page.is_visible("text=Log in")
 
     yield page
+    context.close()
 
 
 @pytest.fixture
