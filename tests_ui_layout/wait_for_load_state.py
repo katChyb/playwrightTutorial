@@ -5,7 +5,7 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 
 
 def test_run(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=False, slow_mo=500)  #slow_mo runs slower whole test, human capable speed
+    browser = playwright.chromium.launch(headless=True, slow_mo=500)  #slow_mo runs slower whole test, human capable speed
     context = browser.new_context()
     page = context.new_page()
     # page.pause()

@@ -29,7 +29,7 @@ def test_about_us_section_verbiage(log_in_set_up) -> None:
 
 @pytest.mark.regression
 def test_about_us_section_verbiage_without_fixture(playwright: Playwright):
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     page = browser.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
    # home_page = HomePage(page)

@@ -32,11 +32,6 @@ jobs:
         python -m pip install pytest-reporter-html1
     - name: Ensure playwright browsers are installed
       run: python -m playwright install chromium
-    - name: Set up Xvfb
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y xvfb
-        Xvfb :99 & export DISPLAY=:99
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -47,5 +42,5 @@ jobs:
       env:
         PASSWORD: ${{secrets.PASSWORD}}
       run: |
-        pytest --debug --template=html1/index.html --report=GItHubActions_report.html 
-        --screenshot=only-on-failure --headed=False
+        pytest --template=html1/index.html --report=GItHubActions_report.html \
+              --video=retain-on-failure --screenshot=only-on-failure

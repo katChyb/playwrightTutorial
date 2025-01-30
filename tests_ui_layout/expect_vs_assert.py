@@ -2,7 +2,7 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 
 
 def about_us_section_verbiage(playwright: Playwright):
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     page = browser.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
     # https://playwright.dev/python/docs/test-assertions

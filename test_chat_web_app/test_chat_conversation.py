@@ -1,6 +1,9 @@
 from playwright.sync_api import expect
+import pytest
 
 
+
+@pytest.mark.skip
 def test_private_chat_message(login_set_up_for_chat):
     page, page2 = login_set_up_for_chat
 

@@ -39,7 +39,7 @@ def set_up(browser):
 @pytest.fixture(scope="session")
 def context_creation(playwright):
 
-    browser = playwright.chromium.launch(headless=False, slow_mo= 400)
+    browser = playwright.chromium.launch(headless=True, slow_mo= 400)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
@@ -92,7 +92,7 @@ def context_creation(playwright):
 @pytest.fixture()
 def log_in_set_up(context_creation, playwright):   # here we are creating separate browser for test
   #  context = context_creation
-    browser= playwright.chromium.launch(headless=False, slow_mo=200)
+    browser= playwright.chromium.launch(headless=True, slow_mo=200)
     context = browser.new_context(storage_state="state.json")
     page= context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")

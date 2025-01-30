@@ -8,7 +8,7 @@ from playwright.sync_api import Playwright, expect, sync_playwright
 #loggin in user korin666@gmail.com User test776 pass Dicim2020!
 @pytest.fixture(scope="session")
 def context_1(playwright):
-    browser = playwright.chromium.launch(headless=False, slow_mo=500)
+    browser = playwright.chromium.launch(headless=True, slow_mo=500)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://www.chat-avenue.com/general/")
@@ -36,7 +36,7 @@ def context_1(playwright):
     #loggin in user test777 Kat.chy@yahoo.com Dicim2020!7
 @pytest.fixture(scope="session")
 def context_2(playwright):
-    browser = playwright.chromium.launch(headless=False, slow_mo=500)
+    browser = playwright.chromium.launch(headless=True, slow_mo=500)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://www.chat-avenue.com/general/")
