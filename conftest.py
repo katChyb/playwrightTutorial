@@ -21,7 +21,8 @@ except KeyError:
 
 #pytest -k test_login --headed will run test with head, this allows to run specific setting without hardcoding it in code
 
-# pytest -k test_about_us_section_verbiage --headed --template=html1/index.html --report=test_run_28012025v1.html --screenshot=only-on-failure --output=test_result_28012025
+# pytest -k test_about_us_section_verbiage --headed --template=html1/index.html --report=test_run_28012025v1.html
+# --screenshot=only-on-failure --output=test_result_28012025
 
 
 @pytest.fixture(scope="session")
