@@ -8,7 +8,7 @@ from playwright.sync_api import Playwright, expect, sync_playwright
 #loggin in user korin666@gmail.com User test776 pass Dicim2020!
 @pytest.fixture(scope="session")
 def context_1(playwright):
-    browser = playwright.chromium.launch(headless=True, slow_mo=500)
+    browser = playwright.chromium.launch(headless=False, slow_mo=500)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://www.chat-avenue.com/general/")
@@ -16,27 +16,26 @@ def context_1(playwright):
     page.get_by_role("button", name="Login", exact=True).click()
     page.get_by_placeholder("Username/Email").click()
     page.get_by_placeholder("Username/Email").fill("korin666@gmail.com")
-   # page.get_by_placeholder("Username/Email").press("Tab")
     page.get_by_placeholder("Password").click()
     page.get_by_placeholder("Password").fill("Dicim2020!")
     page.get_by_role("button", name=" Login").click()
     time.sleep(1)
     page.get_by_title("Search user").locator("i").click()
     page.locator("#usearch_input").click()
-    page.locator("#usearch_input").fill("test776")
-   #TODO delete pause
-    page.pause()
-    time.sleep(1)
-    page.locator("#usearch_result").get_by_text("test776").click(timeout=2000)
+    #page.locator("#usearch_input").fill("test776") # this is not actiavting search of user on the list
+    #https://stackoverflow.com/questions/78694363/playwright-type-or-fill-not-working-as-expected
+    page.locator("#usearch_input").press_sequentially("test776", delay=100)
+    time.sleep(2)
 
-    expect(page.get_by_text("test776")).to_be_visible()
-
+    expect(page.locator("#usearch_result").get_by_text("test776")).to_be_visible()
+    print("yay")
     yield context
+
 
     #loggin in user test777 Kat.chy@yahoo.com Dicim2020!7
 @pytest.fixture(scope="session")
 def context_2(playwright):
-    browser = playwright.chromium.launch(headless=True, slow_mo=500)
+    browser = playwright.chromium.launch(headless=False, slow_mo=500)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://www.chat-avenue.com/general/")
@@ -44,17 +43,18 @@ def context_2(playwright):
     page.get_by_role("button", name="Login", exact=True).click()
     page.get_by_placeholder("Username/Email").click()
     page.get_by_placeholder("Username/Email").fill("Kat.chy@yahoo.com")
-   # page.get_by_placeholder("Username/Email").press("Tab")
     page.get_by_placeholder("Password").click()
     page.get_by_placeholder("Password").fill("Dicim2020!")
     page.get_by_role("button", name=" Login").click()
     time.sleep(1)
     page.get_by_title("Search user").locator("i").click()
     page.locator("#usearch_input").click()
-    page.locator("#usearch_input").fill("test777")
-    page.locator("#usearch_result").get_by_text("test777").click()
+    # page.locator("#usearch_input").fill("test776") # this is not actiavting search of user on the list
+    # https://stackoverflow.com/questions/78694363/playwright-type-or-fill-not-working-as-expected
+    page.locator("#usearch_input").press_sequentially("test777", delay=100)
+    time.sleep(2)
 
-    expect(page.get_by_text("test777")).to_be_visible()
+    expect(page.locator("#usearch_result").get_by_text("test777")).to_be_visible()
 
     yield context
 
