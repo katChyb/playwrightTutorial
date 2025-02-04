@@ -5,10 +5,12 @@ import pytest
 
 
 
-#@pytest.mark.skip("WIP")
+@pytest.mark.xfail
 def test_private_chat_message_was_delivered_successfully(login_set_up_for_chat):
     page, page2 = login_set_up_for_chat
 
+#https://stackoverflow.com/questions/75488727/playwright-works-in-headful-mode-but-fails-in-headless
+    # " the default Playwright headless user agent header explicitly says "I am a robot" by default, while headful uses a normal browser user agent."
     #sending message "hello" by user test776
     page.get_by_title("Search user").locator("i").click()
     page.locator("#usearch_input").click()

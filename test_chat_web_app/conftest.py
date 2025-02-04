@@ -2,7 +2,7 @@ import time
 
 import pytest
 from playwright.sync_api import Playwright, expect, sync_playwright
-no_browser = True
+no_browser = False
 
 
 #loggin in user korin666@gmail.com User test776 pass Dicim2020!
