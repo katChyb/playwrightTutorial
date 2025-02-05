@@ -1,6 +1,3 @@
-import page
-
-
 class HomePage:
 
 
