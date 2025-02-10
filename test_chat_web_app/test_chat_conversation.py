@@ -37,4 +37,5 @@ def test_private_chat_message_was_delivered_successfully(login_set_up_for_chat):
     page2.locator("#avcontent").get_by_text("Private").click()
     time.sleep(0.1)
     # not the best assertion, how to overcome #priv35722893 ??
-    expect(page2.locator("#priv35722893").get_by_text("hello")).to_be_visible()
+    expect(page2.locator("#priv38764161").get_by_text("hello")).to_be_visible()
+
