@@ -14,10 +14,9 @@ def page_login(user: str, password: str, login: str, context):
     page.get_by_placeholder("Password").click()
     page.get_by_placeholder("Password").fill(password)
     page.get_by_role("button", name=" Login").click()
-    time.sleep(1)
+    expect(page.get_by_title("Search user").locator("i")).to_be_enabled()
     page.get_by_title("Search user").locator("i").click()
-    time.sleep(1)
-    print(page.locator('#usearch_input'))
+    expect(page.locator('#usearch_input')).to_be_enabled()
     page.locator("#usearch_input").click()
     #page.locator("#usearch_input").fill("test776") # this is not activating search of user on the list
     #https://stackoverflow.com/questions/78694363/playwright-type-or-fill-not-working-as-expected
