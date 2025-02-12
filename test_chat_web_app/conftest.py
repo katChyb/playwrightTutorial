@@ -16,8 +16,7 @@ def page_login(user: str, password: str, login: str, context):
     page.get_by_placeholder("Password").fill(password)
     page.get_by_role("button", name=" Login").click()
     time.sleep(3)
-    expect(page.get_by_title("Search user").locator("i")).to_be_enabled()
-    page.get_by_title("Search user").locator("i").click()
+    page.locator("#search_option").click()
     expect(page.locator('#usearch_input')).to_be_enabled()
     page.locator("#usearch_input").click()
     #page.locator("#usearch_input").fill("test776") # this is not activating search of user on the list
