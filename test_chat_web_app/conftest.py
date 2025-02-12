@@ -3,7 +3,7 @@ import time
 
 import pytest
 from playwright.sync_api import Playwright, expect, sync_playwright
-no_browser = False
+no_browser = True
 
 def page_login(user: str, password: str, login: str, context):
     page = context.new_page()
