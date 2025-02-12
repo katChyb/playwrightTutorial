@@ -42,4 +42,4 @@ jobs:
       env:
         PASSWORD: ${{secrets.PASSWORD}}
       run: |
-        pytest --template=html1/index.html --report=GItHubActions_report.html --screenshot=only-on-failure --slowmo=400 --lf
+        pytest --template=html1/index.html --report=GItHubActions_report.html --screenshot=only-on-failure 

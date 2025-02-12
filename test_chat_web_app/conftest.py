@@ -2,19 +2,19 @@ import time
 
 import pytest
 from playwright.sync_api import Playwright, expect, sync_playwright
-no_browser = True
+no_browser = False
 
 
 #loggin in user korin666@gmail.com User test776 pass Dicim2020!
 @pytest.fixture(scope="session")
 def context_1(playwright):
-    browser = playwright.chromium.launch(headless=no_browser, slow_mo=400)
+    browser = playwright.chromium.launch(headless=no_browser)
     context = browser.new_context(extra_http_headers={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
         'Accept-Language': 'en-US,en;q=0.9'})
     page = context.new_page()
     page.goto("https://www.chat-avenue.com/general/")
-    page.set_default_timeout(5000)
+    page.set_default_timeout(3000)
     page.get_by_role("button", name="Login", exact=True).click()
     page.get_by_placeholder("Username/Email").click()
     page.get_by_placeholder("Username/Email").fill("korin666@gmail.com")
@@ -23,6 +23,7 @@ def context_1(playwright):
     page.get_by_role("button", name=" Login").click()
     time.sleep(1)
     page.get_by_title("Search user").locator("i").click()
+    time.sleep(1)
     page.locator("#usearch_input").click()
     #page.locator("#usearch_input").fill("test776") # this is not activating search of user on the list
     #https://stackoverflow.com/questions/78694363/playwright-type-or-fill-not-working-as-expected
@@ -37,13 +38,13 @@ def context_1(playwright):
     #loggin in user test777 Kat.chy@yahoo.com Dicim2020!
 @pytest.fixture(scope="session")
 def context_2(playwright):
-    browser = playwright.chromium.launch(headless=no_browser, slow_mo=500)
+    browser = playwright.chromium.launch(headless=no_browser)
     context = browser.new_context(extra_http_headers={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
         'Accept-Language': 'en-US,en;q=0.9'})
     page = context.new_page()
     page.goto("https://www.chat-avenue.com/general/")
-    page.set_default_timeout(5000)
+    page.set_default_timeout(3000)
     page.get_by_role("button", name="Login", exact=True).click()
     page.get_by_placeholder("Username/Email").click()
     page.get_by_placeholder("Username/Email").fill("Kat.chy@yahoo.com")
@@ -52,6 +53,7 @@ def context_2(playwright):
     page.get_by_role("button", name=" Login").click()
     time.sleep(1)
     page.get_by_title("Search user").locator("i").click()
+    time.sleep(1)
     page.locator("#usearch_input").click()
     # page.locator("#usearch_input").fill("test776") # this is not activating search of user on the list
     # https://stackoverflow.com/questions/78694363/playwright-type-or-fill-not-working-as-expected
