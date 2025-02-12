@@ -9,7 +9,9 @@ no_browser = True
 @pytest.fixture(scope="session")
 def context_1(playwright):
     browser = playwright.chromium.launch(headless=no_browser, slow_mo=400)
-    context = browser.new_context()
+    context = browser.new_context(extra_http_headers={
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9'})
     page = context.new_page()
     page.goto("https://www.chat-avenue.com/general/")
     page.set_default_timeout(3000)
@@ -36,7 +38,9 @@ def context_1(playwright):
 @pytest.fixture(scope="session")
 def context_2(playwright):
     browser = playwright.chromium.launch(headless=no_browser, slow_mo=500)
-    context = browser.new_context()
+    context = browser.new_context(extra_http_headers={
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9'})
     page = context.new_page()
     page.goto("https://www.chat-avenue.com/general/")
     page.set_default_timeout(3000)

@@ -5,8 +5,6 @@ from playwright.sync_api import expect
 import pytest
 
 
-
-@pytest.mark.xfail
 def test_private_chat_message_was_delivered_successfully(login_set_up_for_chat):
     page, page2 = login_set_up_for_chat
 
