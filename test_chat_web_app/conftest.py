@@ -1,8 +1,9 @@
+import logging
 import time
 
 import pytest
 from playwright.sync_api import Playwright, expect, sync_playwright
-no_browser = True
+no_browser = False
 
 def page_login(user: str, password: str, login: str, context):
     page = context.new_page()
@@ -14,6 +15,7 @@ def page_login(user: str, password: str, login: str, context):
     page.get_by_placeholder("Password").click()
     page.get_by_placeholder("Password").fill(password)
     page.get_by_role("button", name=" Login").click()
+    time.sleep(3)
     expect(page.get_by_title("Search user").locator("i")).to_be_enabled()
     page.get_by_title("Search user").locator("i").click()
     expect(page.locator('#usearch_input')).to_be_enabled()
