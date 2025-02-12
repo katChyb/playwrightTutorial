@@ -23,6 +23,7 @@ def context_1(playwright):
     page.get_by_role("button", name=" Login").click()
     time.sleep(1)
     page.get_by_title("Search user").locator("i").click()
+    time.sleep(1)
     page.locator("#usearch_input").click()
     #page.locator("#usearch_input").fill("test776") # this is not activating search of user on the list
     #https://stackoverflow.com/questions/78694363/playwright-type-or-fill-not-working-as-expected
@@ -52,6 +53,7 @@ def context_2(playwright):
     page.get_by_role("button", name=" Login").click()
     time.sleep(1)
     page.get_by_title("Search user").locator("i").click()
+    time.sleep(1)
     page.locator("#usearch_input").click()
     # page.locator("#usearch_input").fill("test776") # this is not activating search of user on the list
     # https://stackoverflow.com/questions/78694363/playwright-type-or-fill-not-working-as-expected
