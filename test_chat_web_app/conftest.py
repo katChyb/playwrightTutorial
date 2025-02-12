@@ -2,13 +2,13 @@ import time
 
 import pytest
 from playwright.sync_api import Playwright, expect, sync_playwright
-no_browser = False
+no_browser = True
 
 
 #loggin in user korin666@gmail.com User test776 pass Dicim2020!
 @pytest.fixture(scope="session")
 def context_1(playwright):
-    browser = playwright.chromium.launch(headless=no_browser, slow_mo=500)
+    browser = playwright.chromium.launch(headless=no_browser, slow_mo=400)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://www.chat-avenue.com/general/")
@@ -22,13 +22,13 @@ def context_1(playwright):
     time.sleep(1)
     page.get_by_title("Search user").locator("i").click()
     page.locator("#usearch_input").click()
-    #page.locator("#usearch_input").fill("test776") # this is not actiavting search of user on the list
+    #page.locator("#usearch_input").fill("test776") # this is not activating search of user on the list
     #https://stackoverflow.com/questions/78694363/playwright-type-or-fill-not-working-as-expected
     page.locator("#usearch_input").press_sequentially("test776", delay=100)
     time.sleep(2)
 
     expect(page.locator("#usearch_result").get_by_text("test776")).to_be_visible()
-    print("yay")
+    print("user test776 is logged in")
     yield context
 
 
@@ -49,7 +49,7 @@ def context_2(playwright):
     time.sleep(1)
     page.get_by_title("Search user").locator("i").click()
     page.locator("#usearch_input").click()
-    # page.locator("#usearch_input").fill("test776") # this is not actiavting search of user on the list
+    # page.locator("#usearch_input").fill("test776") # this is not activating search of user on the list
     # https://stackoverflow.com/questions/78694363/playwright-type-or-fill-not-working-as-expected
     page.locator("#usearch_input").press_sequentially("test777", delay=100)
     time.sleep(2)

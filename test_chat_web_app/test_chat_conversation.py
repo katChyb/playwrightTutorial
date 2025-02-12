@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 
 from playwright.sync_api import expect
 import pytest
@@ -18,24 +19,17 @@ def test_private_chat_message_was_delivered_successfully(login_set_up_for_chat):
     page.get_by_text("test777").click()
     page.locator("#avcontent").get_by_text("Private").click()
     page.locator("#message_content").click()
-    page.locator("#message_content").fill("hello")
+    message = f"{datetime.now()} hello"
+    page.locator("#message_content").fill(message)
     page.locator("#private_send").click()
 
-    # validate that message was delivered
+    # validate that message was delivered to user test 777
+    page2.locator("#get_private i").click()
+    page2.locator("#private_menu").get_by_text("Private").click()
+    page2.locator("#private_menu_content").locator('[value="test776"]').click()
+    page2.get_by_text(message).click()
 
-    #  this approach when i click from message icon is not working, as it is not selecting user test777
-    # page2.locator("#get_private i").click()
-    # # time.sleep(1)
-    # page2.locator("#private_menu").get_by_text("Private").click()
-    # page2.locator("div").filter(has_text="test776").nth(4).click()
-    # page2.locator("#priv35716038").get_by_text("hello").click()
+    expect(page2.get_by_text(message)).to_be_visible()
 
-    page2.get_by_title("Search user").locator("i").click()
-    page2.locator("#usearch_input").click()
-    page2.locator("#usearch_input").press_sequentially("test776", delay=100)
-    page2.get_by_text("test776").click()
-    page2.locator("#avcontent").get_by_text("Private").click()
-    time.sleep(0.1)
-    # not the best assertion, how to overcome #priv35722893 ??
-    expect(page2.locator("#priv38764161").get_by_text("hello")).to_be_visible()
+    page2.locator("#private_close").click()
 
