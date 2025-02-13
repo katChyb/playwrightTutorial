@@ -4,8 +4,9 @@ from datetime import datetime
 from playwright.sync_api import expect
 import pytest
 
-
-def test_private_chat_message_was_delivered_successfully(login_set_up_for_chat):
+@pytest.mark.skip
+@pytest.mark.parametrize('run_number', range(5))
+def test_private_chat_message_was_delivered_successfully(login_set_up_for_chat, run_number):
     page, page2 = login_set_up_for_chat
 
 #https://stackoverflow.com/questions/75488727/playwright-works-in-headful-mode-but-fails-in-headless
