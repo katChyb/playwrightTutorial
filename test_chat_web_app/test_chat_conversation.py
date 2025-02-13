@@ -5,7 +5,7 @@ from playwright.sync_api import expect
 import pytest
 
 @pytest.mark.skip
-@pytest.mark.parametrize('run_number', range(5))
+@pytest.mark.parametrize('run_number', range(10))
 def test_private_chat_message_was_delivered_successfully(login_set_up_for_chat, run_number):
     page, page2 = login_set_up_for_chat
 
