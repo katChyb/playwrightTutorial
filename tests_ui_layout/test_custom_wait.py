@@ -1,4 +1,4 @@
-
+import time
 
 from playwright.sync_api import Playwright
 
@@ -14,6 +14,7 @@ def test_login_without_fixture(playwright: Playwright) -> None:
     page.wait_for_load_state("networkidle")
     page.get_by_role("button", name="Log In").click()
     page.wait_for_load_state("load")
+    time.sleep(1)
     page.get_by_test_id("signUp.switchToSignUp").click()
     page.get_by_role("button", name="Log in with Email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").fill("korin666@o2.pl")
