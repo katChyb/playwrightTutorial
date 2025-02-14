@@ -49,32 +49,6 @@ def context_creation(playwright):
 
     webshop_login(USER1_EMAIL, PASSWORD, page)
 
-
- #    page.goto("https://symonstorozhenko.wixsite.com/website-1")
- #    page.set_default_timeout(3000)
- #
- #
- #    login_issue = True
- #    while login_issue:
- #        if not page.is_visible("[data-testid=\"signUp.switchToSignUp\"]"):
- #            page.click("button:has-text(\"Log in\")")
- #        else:
- #            login_issue = False
- #        time.sleep(0.1)
- #
- #    page.get_by_test_id("signUp.switchToSignUp").click(timeout=2000)
- #  #  page.set_default_timeout(2000)
- #    time.sleep(1)
- #    page.get_by_role("button", name="Log in with Email").click()
- #    page.get_by_test_id("emailAuth").get_by_label("Email").click()
- #    page.get_by_test_id("emailAuth").get_by_label("Email").fill("korin666@o2.pl")
- #    page.get_by_label("Password").click()
- # #   page.get_by_label("Password").fill(utils.secret_config.PASSWORD) # password stored locally in secret config file
- #  # page.get_by_label("Password").fill(os.environ['PASSWORD']) # password is taken from github
- #    page.get_by_label("Password").fill(PASSWORD) # password is toggled between local and remote run
- #    page.get_by_test_id("submit").get_by_test_id("buttonElement").click()
- #    page.wait_for_load_state(timeout=10000)
- #    time.sleep(2)  # slep to capture state after loggin in, and not after clicking button "submit"
     storage = context.storage_state(path="state.json") # this is capturing session and store it in json file
 
     yield context
@@ -96,7 +70,6 @@ def context_creation(playwright):
 #     context.close()
 
 
-#this fixture will yield page for every test
 @pytest.fixture()
 def log_in_set_up(context_creation, playwright):   # here we are creating separate browser for test
   #  context = context_creation
