@@ -6,12 +6,11 @@ from fileinput import close
 import pytest
 from playwright.sync_api import Playwright, expect
 from pytest_playwright.pytest_playwright import browser
-
-
 from utils import webshop_config
 from utils.webshop_config import PASSWORD
 from utils.webshop_login_helpers import webshop_login
 
+no_browser= True
 
 # this is causing that if password from githhub is not available, local password will be used, this allows to switch
 # between local and remote run
@@ -44,7 +43,7 @@ def set_up(browser):
 @pytest.fixture(scope="session")
 def context_creation(playwright):
 
-    browser = playwright.chromium.launch(headless=False, slow_mo= 400)
+    browser = playwright.chromium.launch(headless=no_browser, slow_mo= 400)
     context = browser.new_context()
     page = context.new_page()
 
@@ -101,18 +100,14 @@ def context_creation(playwright):
 @pytest.fixture()
 def log_in_set_up(context_creation, playwright):   # here we are creating separate browser for test
   #  context = context_creation
-    browser= playwright.chromium.launch(headless=True, slow_mo=200)
+    browser= playwright.chromium.launch(headless=no_browser, slow_mo=200)
     context = browser.new_context(storage_state="state.json")
     page= context.new_page()
     page.goto(WEBSHOP_BASE_URL)
     page.set_default_timeout(3000)
-    #time.sleep(0.1)
+    page.wait_for_load_state("networkidle")
 
-    page.wait_for_load_state("load")
-    #assert not page.is_visible("text=Log in")
-
-    expect(page.get_by_text("Log in")).not_to_be_visible()
-    #expect(page.not_to_contain_text("Log in"))
+    assert not page.is_visible("text=Log in")
 
     yield page
     browser.close()

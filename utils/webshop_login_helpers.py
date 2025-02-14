@@ -14,6 +14,7 @@ def webshop_login(email, password, page):
     page.get_by_test_id("emailAuth").get_by_label("Email").fill(email)
     page.get_by_label("Password").fill(password)
     page.get_by_test_id("submit").get_by_test_id("buttonElement").click()
-    page.wait_for_load_state("load")
+    page.wait_for_load_state(timeout=10000)
+    time.sleep(2)
 
     return page
