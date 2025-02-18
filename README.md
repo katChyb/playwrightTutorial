@@ -16,43 +16,57 @@ it includes:
 4/ Visual Testing
 
 
-Packages installed for this project are listed in the  **requirements.txt f**ile
+* Packages installed for this project are listed in the  `requirements.txt` file
 
-**python-app.yml** file is responsible for determining CI/CD behaviour
 
-* Package: pom, tests_ui_layout, utils, visual_tests are related to the testing of webshop application 
+* `python-app.yml` file is responsible for determining CI/CD behaviour
+
+
+* Package: `pom, tests_ui_layout, utils, visual_tests` are related to the testing of webshop application 
 https://symonstorozhenko.wixsite.com/website-1
 
 
-* **pom** package includes elements of page object model for webshop tests
+* `pom` package includes elements of page object model for webshop tests
 
 
-* **visual_tests** package includes test based on page screenshot and comparing actual page view with expected page view
+* `visual_tests` package includes test based on page screenshot and comparing actual page view with expected page view
 
 
-* package **test_chat_web_app** relates to testing of web chat with two different users, and confirming that message between them is send 
+* package `test_chat_web_app` relates to testing of web chat with two different users, and confirming that message 
+between them is sent 
 "https://www.chat-avenue.com/general/"
 
 
-* Some of command line example running configurations are listed in **pytest-playwright_CLI_commands** file 
+* Some command line example running configurations are listed in `pytest-playwright_CLI_commands` file 
 
 
-pytest -k test_login --headed_ will run test with head, this allows to run specific setting without hardcoding it in code
+`pytest -k test_login --headed` will run test with head, this allows to run specific setting without hardcoding it in code
 
-pytest -k test_about_us_section_verbiage --headed --template=html1/index.html --report=test_run_28012025v1.html
---screenshot=only-on-failure --output=test_result_28012025
+`pytest -k test_about_us_section_verbiage --headed --template=html1/index.html --report=test_run_28012025v1.html
+--screenshot=only-on-failure --output=test_result_28012025 </code>`
 
-if someone wants to run same test couple of times to check its robustness you can use parametrisation that 
-will run same test 15 times : 
-#@pytest.mark.parametrize('run_number', range(15))
-#def test_login_without_fixture(playwright: Playwright,run_number) -> None:
+Markers like ` regression, smoke, integration` need to be added in file pytest.ini
+
+If you want to run same test couple of times to check its robustness you can use parametrisation that 
+will run same test e.g. 15 times : 
+
+`@pytest.mark.parametrize('run_number', range(15))
+def test_login_without_fixture(playwright: Playwright,run_number) -> None:`
 
 example of assertions
 https://playwright.dev/python/docs/test-assertions
 
+`page.screenshot(path="./test.png")`  - makes screenshot during test execution
 
-markers need to be added in file pytest.ini
-#pytest -m smoke will run only smoke test
+ yield vs return https://medium.com/@HeCanThink/return-vs-yield-pythons-two-pathways-to-results-69354348e17c
+ 
+https://www.markdownguide.org/basic-syntax/#code
+
+https://www.markdownguide.org/cheat-sheet/
+
+
+
+```#pytest -m smoke will run only smoke test
 
 #pytest -m "not smoke" will run all test without smoke tests
 
@@ -84,11 +98,6 @@ need to install pytest-reporter-html1
 
 #pytest -n 3 will run 3 tests in parallel
 
-#combining pytest, report and parallel
-#aim: run only regression, stop after 2 failure, generate test report, and as we wnt to have it quick use parallel execution
-#pytest --maxfail=2 -m regression --template=html1/index.html --report=regression_run_date.html -n3
-
-
-page.screenshot(path="./test.png")  - makes screenshot during test execution
-
- yield vs return https://medium.com/@HeCanThink/return-vs-yield-pythons-two-pathways-to-results-69354348e17c
+combining pytest, report and parallel
+aim: run only regression, stop after 2 failure, generate test report, and as we wnt to have it quick use parallel execution
+<code> pytest --maxfail=2 -m regression --template=html1/index.html --report=regression_run_date.html -n3 </code>
