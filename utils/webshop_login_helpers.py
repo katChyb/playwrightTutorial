@@ -2,7 +2,7 @@ import time
 from utils.webshop_config import WEBSHOP_BASE_URL
 
 def webshop_login(email, password, page):
-
+    """ this is method that is logging in user with given email and password, it is used in web shop tests """
     page.goto(WEBSHOP_BASE_URL)
     page.set_default_timeout(4000)
     page.wait_for_load_state("networkidle")

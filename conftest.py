@@ -1,24 +1,19 @@
 import os
 import pytest
 from pytest_playwright.pytest_playwright import browser
+
+import utils
 from utils import webshop_config
 from utils.webshop_config import PASSWORD
 from utils.webshop_login_helpers import webshop_login
+from utils.webshop_config import WEBSHOP_BASE_URL
 
 no_browser= True
+USER1_EMAIL = webshop_config.WEBSHOP_USER1_EMAIL
 
 # this is causing that if password from githhub is not available, local password will be used, this allows to switch
 # between local and remote run
-try:
-    PASSWORD = os.environ['PASSWORD']
-except KeyError:
-    import utils.webshop_config
-    PASSWORD = utils.webshop_config.PASSWORD
-
-USER1_EMAIL = webshop_config.WEBSHOP_USER1_EMAIL
-from utils.webshop_config import WEBSHOP_BASE_URL
-
-
+os.environ.get('PASSWORD', utils.webshop_config.PASSWORD)
 
 @pytest.fixture(scope="session")
 def set_up(browser):

@@ -101,3 +101,16 @@ need to install pytest-reporter-html1
 combining pytest, report and parallel
 aim: run only regression, stop after 2 failure, generate test report, and as we wnt to have it quick use parallel execution
 <code> pytest --maxfail=2 -m regression --template=html1/index.html --report=regression_run_date.html -n3 </code>
+
+
+
+ this is causing that if password from githhub is not available, local password will be used, this allows to switch
+ between local and remote run
+ try:
+     PASSWORD = os.environ['PASSWORD']
+ except KeyError:
+     import utils.webshop_config
+     PASSWORD = utils.webshop_config.PASSWORD
+
+try except can be replaced by:
+os.environ.get('PASSWORD', utils.webshop_config.PASSWORD)
