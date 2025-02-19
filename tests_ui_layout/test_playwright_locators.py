@@ -12,7 +12,7 @@ def test_run(playwright: Playwright) -> None:
     # https://www.w3schools.com/xml/xpath_axes.asp
     page.wait_for_load_state("networkidle")
 
-    #examples of locators
+    # examples of locators
     # xpath by class   locator('xpath= //wow-image')
     # page.locator("text= shop").first  .nth(0)
     # page.locator("xpath=//*[contains(@class, 'naMHY_vALCqq')]").first / nth(0)

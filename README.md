@@ -53,18 +53,30 @@ will run same test e.g. 15 times :
 `@pytest.mark.parametrize('run_number', range(15))
 def test_login_without_fixture(playwright: Playwright,run_number) -> None:`
 
-example of assertions
+Example of assertions
+
 https://playwright.dev/python/docs/test-assertions
 
 `page.screenshot(path="./test.png")`  - makes screenshot during test execution
 
- yield vs return https://medium.com/@HeCanThink/return-vs-yield-pythons-two-pathways-to-results-69354348e17c
+Yield vs return 
+
+https://medium.com/@HeCanThink/return-vs-yield-pythons-two-pathways-to-results-69354348e17c
+
+Playwright locators 
+
+https://playwright.dev/python/docs/locators
+
+https://www.w3schools.com/xml/xpath_axes.asp
  
+Markdown
+
 https://www.markdownguide.org/basic-syntax/#code
 
 https://www.markdownguide.org/cheat-sheet/
 
 
+Example of command lines (CLI)
 
 ```#pytest -m smoke will run only smoke test
 

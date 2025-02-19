@@ -2,25 +2,23 @@ import os
 import pytest
 from pytest_playwright.pytest_playwright import browser
 
-import utils
 from utils import webshop_config
-from utils.webshop_config import PASSWORD
 from utils.webshop_login_helpers import webshop_login
-from utils.webshop_config import WEBSHOP_BASE_URL
+
 
 no_browser= True
 USER1_EMAIL = webshop_config.WEBSHOP_USER1_EMAIL
 
 # this is causing that if password from githhub is not available, local password will be used, this allows to switch
 # between local and remote run
-os.environ.get('PASSWORD', utils.webshop_config.PASSWORD)
+PASSWORD = os.environ.get('PASSWORD', webshop_config.PASSWORD)
 
 @pytest.fixture(scope="session")
 def set_up(browser):
    # browser = playwright.chromium.launch(headless=False) #, slow_mo= 500
     context = browser.new_context()
     page = context.new_page()
-    page.goto(WEBSHOP_BASE_URL)
+    page.goto(webshop_config.WEBSHOP_BASE_URL)
     page.set_default_timeout(3000)
 
     yield page #it is better to use yield instead of return, it can do more extra things
@@ -63,8 +61,8 @@ def log_in_set_up(context_creation, playwright):   # here we are creating separa
     browser= playwright.chromium.launch(headless=no_browser, slow_mo=200)
     context = browser.new_context(storage_state="state.json")
     page= context.new_page()
-    page.goto(WEBSHOP_BASE_URL)
-    page.set_default_timeout(3000)
+    page.goto(webshop_config.WEBSHOP_BASE_URL)
+    page.set_default_timeout(4000)
     page.wait_for_load_state("networkidle")
 
     assert not page.is_visible("text=Log in")

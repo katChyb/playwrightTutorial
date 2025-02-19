@@ -7,7 +7,6 @@ from pom.home_page_elements import HomePage
 import pytest
 
 
-#@pytest.mark.parametrize('run_number', range(10))
 @pytest.mark.regression
 def test_about_us_section_verbiage(log_in_set_up) -> None:
 
