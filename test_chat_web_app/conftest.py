@@ -1,8 +1,10 @@
 import time
 
 import pytest
-from playwright.sync_api import Playwright, expect, sync_playwright
+from playwright.sync_api import expect
+
 no_browser = True
+
 
 def page_login(user: str, password: str, login: str, context):
     page = context.new_page()
@@ -17,14 +19,15 @@ def page_login(user: str, password: str, login: str, context):
     time.sleep(2)
     page.get_by_title("Search user").locator("i").click()
     page.locator("#usearch_input").click()
-    #page.locator("#usearch_input").fill("test776") # this is not activating search of user on the list
-    #https://stackoverflow.com/questions/78694363/playwright-type-or-fill-not-working-as-expected
+    # page.locator("#usearch_input").fill("test776") # this is not activating search of user on the list
+    # https://stackoverflow.com/questions/78694363/playwright-type-or-fill-not-working-as-expected
     page.locator("#usearch_input").press_sequentially(login, delay=100)
     time.sleep(2)
 
     expect(page.locator("#usearch_result").get_by_text(login)).to_be_visible()
     print(f"user {login} is logged in")
     return page
+
 
 def create_context_for_headless(playwright):
     browser = playwright.chromium.launch(headless=no_browser, slow_mo=500)
@@ -34,8 +37,7 @@ def create_context_for_headless(playwright):
     return context
 
 
-
-#loggin in user korin666@gmail.com User test776 pass Dicim2020!
+# loggin in user korin666@gmail.com User test776 pass Dicim2020!
 @pytest.fixture(scope="session")
 def context_1(playwright):
     new_context = create_context_for_headless(playwright)
@@ -43,7 +45,7 @@ def context_1(playwright):
     return new_context
 
 
-#loggin in user test777 Kat.chy@yahoo.com Dicim2020!
+# loggin in user test777 Kat.chy@yahoo.com Dicim2020!
 @pytest.fixture(scope="session")
 def context_2(playwright):
     context = create_context_for_headless(playwright)

@@ -1,17 +1,17 @@
-import time
 from datetime import datetime
 
-from playwright.sync_api import expect
 import pytest
+from playwright.sync_api import expect
+
 
 @pytest.mark.skip(reason="this test is skipped to not interfere with real service")
 def test_private_chat_message_was_delivered_successfully(login_set_up_for_chat):
     page, page2 = login_set_up_for_chat
 
-#https://stackoverflow.com/questions/75488727/playwright-works-in-headful-mode-but-fails-in-headless
+    # https://stackoverflow.com/questions/75488727/playwright-works-in-headful-mode-but-fails-in-headless
     # " the default Playwright headless user agent header explicitly says "I am a robot" by default, while headful uses a normal browser user agent."
 
-    #sending message "hello" by user test776
+    # sending message "hello" by user test776
     page.get_by_title("Search user").locator("i").click()
     page.locator("#usearch_input").click()
     page.locator("#usearch_input").press_sequentially("test777", delay=100)
@@ -31,4 +31,3 @@ def test_private_chat_message_was_delivered_successfully(login_set_up_for_chat):
     expect(page2.get_by_text(message)).to_be_visible()
 
     page2.locator("#private_close").click()
-

@@ -1,7 +1,7 @@
-
-from utils.webshop_login_helpers import webshop_login
-from utils import webshop_config
 from playwright.sync_api import Playwright
+
+from utils import webshop_config
+from utils.webshop_login_helpers import webshop_login
 
 USER1_EMAIL = webshop_config.WEBSHOP_USER1_EMAIL
 USER1_PASS = webshop_config.WEBSHOP_USER1_PASS

@@ -30,6 +30,7 @@ https://symonstorozhenko.wixsite.com/website-1
 
 
 * `visual_tests` package includes test based on page screenshot and comparing actual page view with expected page view
+in order to use this you need to install `pytest-playwright-visual`
 
 
 * package `test_chat_web_app` relates to testing of web chat with two different users, and confirming that message 
@@ -47,36 +48,61 @@ between them is sent
 
 Markers like ` regression, smoke, integration` need to be added in file pytest.ini
 
-If you want to run same test couple of times to check its robustness you can use parametrisation that 
+* If you want to run same test couple of times to check its robustness you can use parametrisation that 
 will run same test e.g. 15 times : 
 
-`@pytest.mark.parametrize('run_number', range(15))
-def test_login_without_fixture(playwright: Playwright,run_number) -> None:`
+`@pytest.mark.parametrize('run_number', range(15))`
 
-Example of assertions
+`def test_login_without_fixture(playwright: Playwright,run_number) -> None:`
+
+* Example of assertions
 
 https://playwright.dev/python/docs/test-assertions
 
 `page.screenshot(path="./test.png")`  - makes screenshot during test execution
 
-Yield vs return 
+* Yield vs return 
 
 https://medium.com/@HeCanThink/return-vs-yield-pythons-two-pathways-to-results-69354348e17c
 
-Playwright locators 
+* Playwright locators 
 
 https://playwright.dev/python/docs/locators
 
 https://www.w3schools.com/xml/xpath_axes.asp
+
+    # playwright locators https://playwright.dev/python/docs/locators
+    # https://www.w3schools.com/xml/xpath_axes.asp
+    # xpath by class   locator('xpath= //wow-image')
+    # page.locator("text= shop").first   in code 'first' need to be replaced by 'nth(0)'
+    # page.locator("xpath=//*[contains(@class, 'naMHY_vALCqq')]").first / nth(0)
+    # locator("xpath=//div[contains(@class, 'p_m9YY aG5eBy')]").first
+    # product = page.get_by_text("$85").first.locator("xpath=../../../../../../../../../..").text_content()
+    # assert product != "Socks"
+    # in console you can use eg this CSS selector to identify your element: playwright.$("input[type= "email"]") or
+    # playwright.$("text= Shop") or playwright.$(":nth-match(:text('Shop'), 1)") or playwright.$(":nth-match(button, 2)")
+    # or playwright.$("button:has-text('Log in')")
+    # input:below(:text("Email")) email input on login page, in console you can use playwright.$('input:below(:text("Email"))')
  
-Markdown
+* Markdown
 
 https://www.markdownguide.org/basic-syntax/#code
 
 https://www.markdownguide.org/cheat-sheet/
 
+* In some places in code you can see references to the same webshop url in two different ways: 
 
-Example of command lines (CLI)
+`page.goto("https://symonstorozhenko.wixsite.com/website-1")` 
+
+`page.goto(WEBSHOP_BASE_URL)`
+
+As you can see for first example, webshop page base url is directly provided in test code, if we have lots of tests and in 
+each test we have this url directly writen, if url will change we will have to update all places where this was used.
+
+For second case we are using variable, which is defined in `utils.webshop_config`, now if url will change we will have to 
+update only once place.  
+
+* Example of command lines (CLI)
 
 ```#pytest -m smoke will run only smoke test
 
@@ -99,30 +125,39 @@ Example of command lines (CLI)
 #pytest --ff re-run all test starting from failed
 
 #pytest --ff -x -v re-run all test starting from failed and stop after first failure and user verbalis mode
-
+```
 https://docs.pytest.org/en/6.2.x/usage.html
 
-running test with test report: pytest --template=html1/index.html --report=report.html
+running test with test report: `pytest --template=html1/index.html --report=report.html`
 
 need to install pytest-reporter-html1
 
-#parallel run with pytes - install  pytest-xdist
+parallel run with pytes - install  pytest-xdist
 
-#pytest -n 3 will run 3 tests in parallel
+`pytest -n 3` will run 3 tests in parallel
 
 combining pytest, report and parallel
 aim: run only regression, stop after 2 failure, generate test report, and as we wnt to have it quick use parallel execution
-<code> pytest --maxfail=2 -m regression --template=html1/index.html --report=regression_run_date.html -n3 </code>
+`pytest --maxfail=2 -m regression --template=html1/index.html --report=regression_run_date.html -n3`
+
+`pytest -k test_login --headed` will run test with head, this allows to run specific setting without hardcoding it in code
 
 
 
- this is causing that if password from githhub is not available, local password will be used, this allows to switch
- between local and remote run
- try:
+*  this is causing that if password from githhub is not available, local password will be used, this allows to switch
+between local and remote run
+ 
+` try:
      PASSWORD = os.environ['PASSWORD']
  except KeyError:
      import utils.webshop_config
-     PASSWORD = utils.webshop_config.PASSWORD
+     PASSWORD = utils.webshop_config.PASSWORD`
 
 try except can be replaced by:
-os.environ.get('PASSWORD', utils.webshop_config.PASSWORD)
+
+`os.environ.get('PASSWORD', utils.webshop_config.PASSWORD)`
+
+* for `visual_tests` 
+
+please keep in mind that first test will always fail as it needs to create reference screenshot, and this is happening 
+during running test for the first time 
