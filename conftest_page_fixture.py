@@ -1,14 +1,10 @@
 import time
-
 import pytest
-from playwright.sync_api import Playwright
 
-#pytest -k test_login --headed will run test with head, this allows to run specific setting without hardcoding it in code
 
 
 @pytest.fixture(scope="session")
 def set_up(browser):
-   # browser = playwright.chromium.launch(headless=False) #, slow_mo= 500
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
@@ -33,7 +29,6 @@ def log_in_set_up(set_up):
         time.sleep(0.1)
 
     page.get_by_test_id("signUp.switchToSignUp").click(timeout=2000)
-  #  page.set_default_timeout(2000)
     time.sleep(0.1)
     page.get_by_role("button", name="Log in with Email").click()
     page.get_by_test_id("emailAuth").get_by_label("Email").click()

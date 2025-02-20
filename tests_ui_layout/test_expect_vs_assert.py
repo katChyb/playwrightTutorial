@@ -10,5 +10,6 @@ def about_us_section_verbiage(playwright: Playwright):
     expect(page.locator("text= Celebrating Beauty and Style")).to_be_visible()
     print("yay")
 
+
 with sync_playwright() as playwright:
     about_us_section_verbiage(playwright)
