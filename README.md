@@ -1,4 +1,4 @@
-# playwrightTutorial
+ playwrightTutorial
 
 This project is based on UDEMY course:
 https://www.udemy.com/course/playwright-with-python-for-web-automation-testing/?couponCode=KEEPLEARNING
@@ -71,24 +71,38 @@ https://playwright.dev/python/docs/locators
 
 https://www.w3schools.com/xml/xpath_axes.asp
 
-    # playwright locators https://playwright.dev/python/docs/locators
-    # https://www.w3schools.com/xml/xpath_axes.asp
-    # xpath by class   locator('xpath= //wow-image')
-    # page.locator("text= shop").first   in code 'first' need to be replaced by 'nth(0)'
-    # page.locator("xpath=//*[contains(@class, 'naMHY_vALCqq')]").first / nth(0)
-    # locator("xpath=//div[contains(@class, 'p_m9YY aG5eBy')]").first
-    # product = page.get_by_text("$85").first.locator("xpath=../../../../../../../../../..").text_content()
-    # assert product != "Socks"
-    # in console you can use eg this CSS selector to identify your element: playwright.$("input[type= "email"]") or
-    # playwright.$("text= Shop") or playwright.$(":nth-match(:text('Shop'), 1)") or playwright.$(":nth-match(button, 2)")
-    # or playwright.$("button:has-text('Log in')")
-    # input:below(:text("Email")) email input on login page, in console you can use playwright.$('input:below(:text("Email"))')
+     
+     xpath by class   locator('xpath= //wow-image')
+
+     page.locator("text= shop").first   in code 'first' need to be replaced by 'nth(0)'
+
+     page.locator("xpath=//*[contains(@class, 'naMHY_vALCqq')]").first / nth(0)
+
+     locator("xpath=//div[contains(@class, 'p_m9YY aG5eBy')]").first
+
+     product = page.get_by_text("$85").first.locator("xpath=../../../../../../../../../..").text_content()
+     assert product != "Socks"
+
+     in console you can use eg this CSS selector to identify your element: playwright.$("input[type= "email"]") or
+     playwright.$("text= Shop") or playwright.$(":nth-match(:text('Shop'), 1)") or playwright.$(":nth-match(button, 2)")
+     or playwright.$("button:has-text('Log in')")
+
+     input:below(:text("Email")) email input on login page, in console you can use playwright.$('input:below(:text("Email"))')
  
 * Markdown
 
-https://www.markdownguide.org/basic-syntax/#code
+https://www.markdownguide.org/basic-syntax/code
 
 https://www.markdownguide.org/cheat-sheet/
+
+* Code comments
+
+https://methodpoet.com/commented-out-code/
+
+https://bytedev.medium.com/code-comment-anti-patterns-and-why-the-comment-you-just-wrote-is-probably-not-needed-919a92cf6758
+
+https://softwareengineering.stackexchange.com/questions/377186/why-is-it-wrong-to-comment-out-code-and-then-gradually-remove-it-to-keep-track-o
+
 
 * In some places in code you can see references to the same webshop url in two different ways: 
 
@@ -104,27 +118,28 @@ update only once place.
 
 * Example of command lines (CLI)
 
-```#pytest -m smoke will run only smoke test
+```
+pytest -m smoke will run only smoke test
 
-#pytest -m "not smoke" will run all test without smoke tests
+pytest -m "not smoke" will run all test without smoke tests
 
-#pytest -m "not smoke" -v will run all test without smoke tests in verbalis mode (more details)
+pytest -m "not smoke" -v will run all test without smoke tests in verbalis mode (more details)
 
-#pytest -m "integration or regression" -v will run all integration or regression test without smoke tests
+pytest -m "integration or regression" -v will run all integration or regression test without smoke tests
 
-#pytest -x stop executing test suite after first failure
+pytest -x stop executing test suite after first failure
 
-#pytest --maxfail=2  allow max 2 failure before stopping
+pytest --maxfail=2  allow max 2 failure before stopping
 
-#pytest -k test_func_name run single test
+pytest -k test_func_name run single test
 
-#pytest test_file.py run single file, need to provide root path for file
+pytest test_file.py run single file, need to provide root path for file
 
-#pytest --lf re-run last failed test
+pytest --lf re-run last failed test
 
-#pytest --ff re-run all test starting from failed
+pytest --ff re-run all test starting from failed
 
-#pytest --ff -x -v re-run all test starting from failed and stop after first failure and user verbalis mode
+pytest --ff -x -v re-run all test starting from failed and stop after first failure and user verbalis mode
 ```
 https://docs.pytest.org/en/6.2.x/usage.html
 
