@@ -18,6 +18,9 @@ it includes:
 
 * Packages installed for this project are listed in the  `requirements.txt` file
 
+how to check installed packages: `pip list`
+
+how to install packages from requirements file: `pip install -r requirements.txt`
 
 * `python-app.yml` file is responsible for determining CI/CD behaviour
 
@@ -176,3 +179,80 @@ try except can be replaced by:
 
 please keep in mind that first test will always fail as it needs to create reference screenshot, and this is happening 
 during running test for the first time 
+
+
+* CI/CD
+
+Bitbucket configuration for manual run 
+
+ ````Template python-build
+
+ This template allows you to validate your python code.
+ The workflow allows running tests and code linting on the default branch.
+
+image: python:3.13
+
+pipelines:
+  custom:
+    test_pipeline:
+      - step:
+          name: Install dependencies and test
+          caches:
+            - pip
+          script:
+            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+            - pip install pytest
+            - playwright install-deps
+            - playwright install chromium
+            - pytest -v --junitxml=test-reports/report.xml
+  ````
+
+
+GIT configuration for auto run 
+
+```
+This workflow will install Python dependencies, run tests and lint with a single version of Python
+For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Playwright tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.13
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.13"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest-playwright
+        python -m pip install playwright
+        python -m pip install pytest-xdist
+        python -m pip install pytest-reporter-html1
+    - name: Ensure playwright browsers are installed
+      run: python -m playwright install chromium
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Test with pytest
+      env:
+        PASSWORD: ${{secrets.PASSWORD}}
+      run: |
+        pytest --template=html1/index.html --report=GItHubActions_report.html --screenshot=only-on-failure 
